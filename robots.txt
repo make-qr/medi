@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://medi.omeglechat.online/sitemap.xml
