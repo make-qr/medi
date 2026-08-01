@@ -1,0 +1,28 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-grid">
+      <div>
+        <strong>OmegleChat Medi</strong>
+        <p>Health-light essays on loneliness, sleep, gentle habits, and staying connected — not a substitute for medical care.</p>
+      </div>
+      <div>
+        <strong>Explore</strong>
+        <div class="footer-links">
+          <a href="{{ '/category/connection-health/' | relative_url }}">Connection Health</a>
+          <a href="{{ '/category/sleep-nights/' | relative_url }}">Sleep &amp; Quiet Nights</a>
+          <a href="{{ '/posts/' | relative_url }}">All articles</a>
+        </div>
+      </div>
+      <div>
+        <strong>OmegleChat</strong>
+        <div class="footer-links">
+          <a href="{{ site.main_site }}">Main site</a>
+          <a href="{{ site.chat_url }}">Start chatting</a>
+          <a href="{{ site.blog_site }}">Stories &amp; guides</a>
+        </div>
+      </div>
+    </div>
+    <p class="footer-copy">&copy; {{ 'now' | date: '%Y' }} OmegleChat. Educational content only — not medical or mental-health advice. If you are in crisis, contact local emergency services or a trusted helpline.</p>
+  </div>
+</footer>
+<script src="{{ '/assets/js/medi.js' | relative_url }}" defer></script>

@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+<meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="icon" href="{{ '/assets/images/logo-icon.png' | relative_url }}" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/css/medi.css' | relative_url }}">
+{% if page.hero_image or page.image %}
+<meta property="og:image" content="{% if page.hero_image contains 'http' %}{{ page.hero_image }}{% else %}{{ page.hero_image | default: page.image | absolute_url }}{% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+{% else %}
+<meta property="og:image" content="{{ '/assets/images/logo-icon.png' | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+{% endif %}
+{% include adsense-loader.html %}
+{% if site.google_analytics %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', '{{ site.google_analytics }}');
+</script>
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a.chat-cta-link, a[data-cta="chat"]');
+    if (!a || typeof gtag !== 'function') return;
+    gtag('event', 'chat_cta_click', {
+      event_category: 'conversion',
+      event_label: a.getAttribute('data-cta-placement') || 'unknown',
+      link_url: a.href
+    });
+  });
+</script>
+{% endif %}
+{% seo %}

@@ -1,0 +1,53 @@
+title: OmegleChat Medi
+description: Health-light essays on loneliness, sleep, gentle habits, and the aging mind — connection-first wellness from OmegleChat.
+url: https://medi.omeglechat.online
+baseurl: ""
+lang: en
+timezone: UTC
+future: false
+markdown: kramdown
+kramdown:
+  input: GFM
+permalink: /:slug/
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+main_site: https://omeglechat.online
+chat_url: https://omeglechat.online/chat.html
+blog_site: https://blog.omeglechat.online
+
+adsense:
+  client: ca-pub-4151519079019358
+  slots:
+    leaderboard: "7974813655"
+
+google_analytics: G-KENLW8Z2M7
+
+author:
+  name: OmegleChat Editorial
+  default_writer: Morgan Rivers
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      full_width: true
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - DEPLOY.md
+  - KE-HOACH-NOI-DUNG.md
+  - download-post-images.py
+  - vendor
+  - .bundle

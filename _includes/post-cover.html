@@ -1,0 +1,16 @@
+{% assign post = include.post %}
+{% assign cover = post.hero_image | default: post.image %}
+{% unless cover %}
+  {% if post.series_slug and site.data.covers.series[post.series_slug] %}
+    {% assign cover = site.data.covers.series[post.series_slug] %}
+  {% elsif post.category_slug and site.data.covers.categories[post.category_slug] %}
+    {% assign cover = site.data.covers.categories[post.category_slug] %}
+  {% else %}
+    {% assign cover = site.data.covers.default %}
+  {% endif %}
+{% endunless %}
+{% if cover contains 'http' %}
+  {% assign cover_src = cover %}
+{% else %}
+  {% assign cover_src = cover | relative_url %}
+{% endif %}

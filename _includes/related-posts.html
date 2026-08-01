@@ -1,0 +1,35 @@
+{% assign cat = page.category_slug | default: 'connection-health' %}
+{% assign count = 0 %}
+<aside class="related-posts" aria-label="Related articles">
+  <h2 class="sidebar-title">Keep reading</h2>
+  <ul class="related-list">
+    {% if page.next_part %}
+      {% assign count = count | plus: 1 %}
+      <li class="related-next"><a href="{{ page.next_part | relative_url }}">Next episode{% if page.series_part %} · Part {{ page.series_part | plus: 1 }}{% endif %} →</a></li>
+    {% endif %}
+    {% if page.prev_part and count < 3 %}
+      {% assign count = count | plus: 1 %}
+      <li><a href="{{ page.prev_part | relative_url }}">Previous episode{% if page.series_part %} · Part {{ page.series_part | minus: 1 }}{% endif %}</a></li>
+    {% endif %}
+    {% for post in site.posts %}
+      {% if count >= 4 %}{% break %}{% endif %}
+      {% if post.url == page.url %}{% elsif page.next_part and post.url == page.next_part %}{% elsif page.prev_part and post.url == page.prev_part %}
+      {% else %}
+        {% assign match = false %}
+        {% if page.series_slug and post.series_slug == page.series_slug %}{% assign match = true %}{% endif %}
+        {% if post.category_slug == cat and post.series_slug != page.series_slug %}{% assign match = true %}{% endif %}
+        {% if match %}
+          {% assign count = count | plus: 1 %}
+          {% assign rtitle = post.title %}
+          {% if post.series_slug == 'late-bloom-stories' %}
+            {% assign rtitle = post.title | split: ' — Late Bloom' | first %}
+          {% endif %}
+          <li><a href="{{ post.url | relative_url }}">{{ rtitle }}{% if post.series_part %} · Part {{ post.series_part }}{% endif %}</a></li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+  {% if page.series_slug %}
+  <p class="related-series-link"><a href="{{ '/series/' | append: page.series_slug | append: '/' | relative_url }}">Full series index →</a></p>
+  {% endif %}
+</aside>

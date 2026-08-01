@@ -1,0 +1,26 @@
+{% assign chat_url = site.chat_url | default: 'https://omeglechat.online/chat.html' %}
+{% assign is_strong = false %}
+{% if page.cta_strength == 'strong' or page.pillar == 'connection-health' and page.cta_strength != 'soft' %}
+  {% if page.cta_strength == 'strong' %}{% assign is_strong = true %}{% endif %}
+{% endif %}
+{% if page.cta_strength == 'strong' %}{% assign is_strong = true %}{% endif %}
+
+{% if is_strong %}
+<aside class="chat-cta-box chat-cta-box--strong" aria-label="Start chat">
+  <p class="chat-cta-kicker">Need a low-pressure conversation?</p>
+  <p class="chat-cta-lead">Free random chat in your browser — no download, leave anytime. Pair it with <a href="https://omeglechat.online/safety-tips.html">safety tips</a>.</p>
+  <p class="chat-cta-actions">
+    <a class="btn chat-cta-link" href="{{ chat_url }}" data-cta="chat" data-cta-placement="medi-end">Start free chat</a>
+    <a class="btn btn-outline" href="https://omeglechat.online/safety-tips.html">Safety tips</a>
+  </p>
+</aside>
+{% else %}
+<aside class="chat-cta-box chat-cta-box--soft" aria-label="Try chat">
+  <p class="chat-cta-lead text-muted">Quiet night and want a gentle conversation?</p>
+  <p><a class="btn btn-outline chat-cta-link" href="{{ chat_url }}" data-cta="chat" data-cta-placement="medi-end">Start free chat</a></p>
+</aside>
+{% endif %}
+
+<aside class="chat-cta-box" style="margin-top:1rem;border-style:dashed;opacity:0.95;" aria-label="Medical disclaimer">
+  <p class="text-muted" style="margin:0;font-size:0.9rem;"><em>This article is for general education only and is not medical advice. Talk with a qualified clinician about personal health decisions. If you are in crisis, contact emergency services or a trusted helpline in your country.</em></p>
+</aside>

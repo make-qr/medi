@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img
+        class="brand-icon"
+        src="{{ '/assets/images/logo-icon.png' | relative_url }}"
+        alt=""
+        width="40"
+        height="40"
+        decoding="async"
+      >
+      <span class="brand-text">
+        <strong>OmegleChat</strong>
+        <small>Medi</small>
+      </span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Main">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/posts/' | relative_url }}">Articles</a>
+      <a href="{{ '/category/connection-health/' | relative_url }}">Connection</a>
+      <a href="{{ '/category/sleep-nights/' | relative_url }}">Sleep</a>
+      <a href="{{ '/category/brain-aging/' | relative_url }}">Brain &amp; Aging</a>
+      <a href="{{ '/category/gentle-habits/' | relative_url }}">Habits</a>
+      <a href="{{ '/author/morgan-rivers/' | relative_url }}">Morgan Rivers</a>
+      <a href="{{ site.chat_url }}" class="nav-cta">Start chat</a>
+    </nav>
+  </div>
+</header>

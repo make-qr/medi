@@ -1,0 +1,122 @@
+---
+layout: default
+full_width: true
+---
+<article
+  class="post-page"
+  data-series-slug="{{ page.series_slug }}"
+  data-series-part="{{ page.series_part }}"
+  data-post-url="{{ page.url | relative_url }}"
+  data-post-title="{{ page.title | escape }}"
+  data-next-part="{% if page.next_part %}{{ page.next_part | relative_url }}{% endif %}"
+>
+  {% if page.series_name %}
+  <p class="post-kicker">
+    {% if page.series_slug %}
+    <a href="{{ '/series/' | append: page.series_slug | append: '/' | relative_url }}">{{ page.series_name }}</a>
+    {% else %}
+    <a href="{{ '/series/the-quiet-hours-chronicle/' | relative_url }}">{{ page.series_name }}</a>
+    {% endif %}
+    {% if page.series_part %}
+    · Part {{ page.series_part }}{% if page.series_parts %} of {{ page.series_parts }}{% endif %}
+    {% elsif page.series_part_label %}
+    · {{ page.series_part_label }}{% if page.series_parts %} of {{ page.series_parts }}{% endif %}
+    {% endif %}
+  </p>
+  {% endif %}
+
+  <header class="post-header">
+    <h1>{{ page.title }}</h1>
+    <div class="post-meta">
+      {% if page.author %}
+      <span>By <a href="{{ '/author/' | append: page.author_slug | default: 'morgan-rivers' | append: '/' | relative_url }}">{{ page.author }}</a>{% if page.author_role %}, {{ page.author_role }}{% endif %}</span>
+      {% endif %}
+      {% if page.category %}
+      <span class="sep">·</span>
+      <a href="{{ '/category/' | append: page.category_slug | default: 'human-connection' | append: '/' | relative_url }}">{{ page.category }}</a>
+      {% endif %}
+      {% if page.date %}
+      <span class="sep">·</span>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+      {% endif %}
+      <span class="sep">·</span>
+      {% include reading-time.html %}
+    </div>
+    {% if page.excerpt %}
+    <p class="post-deck">{{ page.excerpt }}</p>
+    {% endif %}
+  </header>
+
+  {% if page.hero_image or page.image %}
+  <figure class="post-hero">
+    <img src="{% if page.hero_image contains 'http' %}{{ page.hero_image }}{% else %}{{ page.hero_image | default: page.image | relative_url }}{% endif %}" alt="{{ page.hero_alt | default: page.title }}" width="1200" height="630" loading="eager">
+    {% if page.hero_caption %}<figcaption>{{ page.hero_caption }}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
+
+  {% if page.youtube_id %}
+  <div class="media-embed video-embed">
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/{{ page.youtube_id }}"
+      title="{{ page.title }}"
+      loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+    {% if page.youtube_caption %}<p class="media-caption">{{ page.youtube_caption }}</p>{% endif %}
+  </div>
+  {% endif %}
+
+  <div class="post-layout">
+    <div class="post-main">
+      <nav id="post-toc" class="post-toc-mobile" aria-label="Table of contents" hidden>
+        <strong>On this page</strong>
+        <ol id="post-toc-list"></ol>
+      </nav>
+
+      {% include ad-leaderboard.html %}
+
+      <div class="post-body prose">
+        {{ content }}
+      </div>
+
+      {% include ad-leaderboard.html %}
+
+      {% include serial-progress.html %}
+
+      {% include chat-cta.html %}
+
+      {% if page.series_name and page.prev_part or page.next_part %}
+      <nav class="serial-nav" aria-label="Series navigation">
+        {% if page.prev_part %}
+        <a class="serial-nav-prev btn btn-outline" href="{{ page.prev_part | relative_url }}">← Previous{% if page.series_part %} · Part {{ page.series_part | minus: 1 }}{% endif %}</a>
+        {% else %}<span></span>{% endif %}
+        {% if page.next_part %}
+        <a class="serial-nav-next btn" href="{{ page.next_part | relative_url }}">Next{% if page.series_part %} · Part {{ page.series_part | plus: 1 }}{% endif %} →</a>
+        {% endif %}
+      </nav>
+      {% endif %}
+
+      {% if page.next_part and page.series_slug == 'late-bloom-stories' %}
+      <p class="read-next-prompt">Keep the story going — <a href="{{ page.next_part | relative_url }}">open the next episode</a>.</p>
+      {% endif %}
+
+      <footer class="post-footer">
+        <a href="{{ '/posts/' | relative_url }}">← All posts</a>
+        <a href="{{ site.chat_url }}" class="cta-chat chat-cta-link" data-cta="chat" data-cta-placement="footer">Try OmegleChat</a>
+      </footer>
+    </div>
+
+    <aside class="post-sidebar">
+      <nav id="post-toc-desktop" class="post-toc" aria-label="Table of contents" hidden>
+        <strong>On this page</strong>
+        <ol id="post-toc-list-desktop"></ol>
+      </nav>
+      {% include related-posts.html %}
+      <div class="sidebar-cta">
+        <p><strong>Need someone to talk to?</strong></p>
+        <p class="text-muted">Safe random chat in your browser — no download.</p>
+        <a class="btn chat-cta-link" href="{{ site.chat_url }}" data-cta="chat" data-cta-placement="sidebar">Start free chat</a>
+      </div>
+    </aside>
+  </div>
+</article>

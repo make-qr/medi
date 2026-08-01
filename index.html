@@ -1,0 +1,58 @@
+---
+layout: default
+title: Home
+full_width: true
+---
+
+<section class="hero">
+  <h1>OmegleChat Medi</h1>
+  <p class="hero-lead">Health-light essays on loneliness, sleep, gentle habits, and the aging mind — written for people who want connection, not a clinic.</p>
+  <p class="hero-sub">Connection health · Quiet nights · Brain &amp; later years · Soft path to conversation</p>
+</section>
+
+{% include ad-leaderboard.html %}
+
+{% include category-pills.html active='all' %}
+
+<section class="featured-grid">
+  <article class="featured-card featured-primary">
+    <p class="label">★ Start here · Connection</p>
+    <h2><a href="{{ '/loneliness-vs-solitude/' | relative_url }}">Loneliness vs solitude</a></h2>
+    <p>How to tell which one you’re living in — and why the difference matters for mood, sleep, and reaching out.</p>
+    <a class="btn" href="{{ '/loneliness-vs-solitude/' | relative_url }}">Read the essay</a>
+    <a class="btn btn-outline" href="{{ site.chat_url }}">Start free chat</a>
+  </article>
+  <article class="featured-card">
+    <p class="label">☾ Quiet nights</p>
+    <h2><a href="{{ '/safe-talk-when-lonely-at-1am/' | relative_url }}">Talking safely at 1 a.m.</a></h2>
+    <p>When the night feels heavy, a low-pressure conversation can help — with clear safety boundaries.</p>
+    <a class="btn btn-outline" href="{{ '/safe-talk-when-lonely-at-1am/' | relative_url }}">Read the guide</a>
+  </article>
+</section>
+
+<section class="home-section" style="padding-top:0;">
+  <h2 class="section-title">What you’ll find here</h2>
+  <p class="archive-lead" style="margin-top:0;">Research-informed, connection-first writing. We do not diagnose, prescribe, or replace clinicians — we help ordinary lonely hours feel a little less sharp.</p>
+  <p>
+    <a class="btn btn-outline" href="{{ '/category/connection-health/' | relative_url }}">Connection Health</a>
+    <a class="btn btn-outline" href="{{ '/category/sleep-nights/' | relative_url }}">Sleep &amp; Quiet Nights</a>
+    <a class="btn btn-outline" href="{{ '/category/brain-aging/' | relative_url }}">Brain &amp; Aging</a>
+    <a class="btn btn-outline" href="{{ '/category/gentle-habits/' | relative_url }}">Gentle Habits</a>
+  </p>
+</section>
+
+<section class="home-section">
+  <h2 class="section-title">Latest articles</h2>
+  <div class="post-card-grid">
+    {% assign recent = site.posts | slice: 0, 24 %}
+    {% for post in recent %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+  <p class="section-more"><a href="{{ '/posts/' | relative_url }}">View all {{ site.posts | size }} posts →</a></p>
+</section>
+
+<section class="home-section">
+  <h2 class="section-title">Also from OmegleChat</h2>
+  <p class="archive-lead" style="margin-top:0;">Stories and chat guides live on our <a href="{{ site.blog_site }}">main blog</a>. Practice conversation anytime on <a href="{{ site.chat_url }}">OmegleChat</a>.</p>
+</section>

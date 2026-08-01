@@ -1,0 +1,14 @@
+{% if page.series_part and page.series_parts and page.series_parts > 1 %}
+{% assign pct = page.series_part | times: 100 | divided_by: page.series_parts %}
+<div class="serial-progress" aria-label="Series progress">
+  <div class="serial-progress-label">
+  Part {{ page.series_part }} of {{ page.series_parts }}
+  </div>
+  <div class="serial-progress-bar" role="progressbar" aria-valuenow="{{ page.series_part }}" aria-valuemin="1" aria-valuemax="{{ page.series_parts }}">
+    <span class="serial-progress-fill" style="width: {{ pct }}%"></span>
+  </div>
+  {% if page.series_slug %}
+  <a class="serial-progress-link" href="{{ '/series/' | append: page.series_slug | append: '/' | relative_url }}">Series index</a>
+  {% endif %}
+</div>
+{% endif %}
