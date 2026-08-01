@@ -22,6 +22,7 @@ jobs:
           ruby-version: "3.2"
           bundler-cache: true
           cache-version: 2
+      - run: python3 qa-posts.py
       - run: bundle exec jekyll build --destination ./_site
       - uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'

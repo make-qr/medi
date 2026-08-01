@@ -397,15 +397,48 @@ I still have quiet days. I try to notice sooner whether the quiet is chosen. Whe
 
 def render_post(p: dict, idx: int) -> str:
     body = build_body(p, idx)
-    # pad if needed
-    while word_count(body) < 1120:
-        body += (
-            "\n\n## One more gentle reminder\n\n"
-            "You do not have to solve your whole social life tonight. You only have to "
-            "interrupt the story that says needing people is a flaw. Keep safety close, "
-            "keep expectations modest, and let one decent conversation be enough for the day. "
-            "If this season stays heavy, widen the circle of support — friends, family, community, "
-            "or a professional — rather than demanding a single habit carry everything.\n"
+    # Never pad with repeated identical sections.
+    if word_count(body) < 1000:
+        title = p["title"]
+        slug = p["slug"]
+        category = p["category"]
+        angle = p.get("angle") or p.get("excerpt") or slug.replace("-", " ")
+        topic = slug.replace("-", " ")
+        focus = " ".join(slug.split("-")[:4])
+        extra = f"""
+## What makes "{title}" feel so specific
+
+When people look for *{topic}*, they usually want language for a narrow situation: {angle.rstrip('.')}. Respond with one concrete change — not a personality overhaul — around **{focus}**.
+
+## A scene you might recognize
+
+An ordinary evening shaped by {topic}: nothing dramatic, yet something keeps checking for a signal that does not arrive. Prefer a proportional action (ten minutes of contact, a calmer wind-down, one standing plan) over a heroic fix you will cancel.
+
+## Gentle experiments for the next seven days
+
+1. Name the gap in one sentence.
+2. Schedule one low-friction contact with a specific time.
+3. Protect one boundary that protects rest or dignity.
+4. Pair a body cue (walk, water, daylight) with a human voice when evenings feel hollow.
+5. Review without grading — keep what felt 10% kinder.
+
+## FAQ in plain language
+
+**Every day?** No — rhythm beats intensity.
+**Feeling silly?** Awkward is not unsafe; leave only what is unsafe.
+**More help?** Persistent hopelessness or collapsing function → clinician or crisis resource. Essays are companions, not emergency care.
+"""
+        if "## Closing" in body:
+            body = body.replace("## Closing", extra + "
+## Closing", 1)
+        else:
+            body = body.rstrip() + "
+" + extra
+    wc = word_count(body)
+    if wc < 1000:
+        raise SystemExit(
+            f"Generated body too short ({wc} words) for {p.get('slug')}. "
+            "Expand the category template — do not append duplicate sections."
         )
     tags = p.get("tags") or [p["category_slug"]]
     tags_yaml = "[" + ", ".join(tags) + "]"
@@ -426,7 +459,7 @@ cta_strength: {p.get('cta_strength', 'soft')}
 tags: {tags_yaml}
 hero_image: "{p['hero_image']}"
 hero_alt: "{yaml_escape(p.get('hero_alt') or p['title'])}"
-hero_caption: "Photo: Unsplash"
+hero_caption: "Photo: Picsum"
 ---
 
 """

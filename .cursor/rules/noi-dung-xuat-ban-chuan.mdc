@@ -1,0 +1,29 @@
+---
+description: Chuẩn xuất bản nội dung — không lỗi sơ xuất, không pad/lặp
+alwaysApply: true
+---
+
+# Nội dung xuất bản — chuẩn chỉ bắt buộc
+
+Khi viết / generate / sửa bài cho blog, medi, offpage, hoặc site nội dung bất kỳ trong workspace này:
+
+## Nguyên tắc
+
+1. **Bài đưa lên phải chuẩn** — không chấp nhận lỗi sơ xuất (heading lặp, đoạn pad copy-paste, ảnh trùng, CTA hỏng, typo lộ generator).
+2. **Cấm pad độ dài bằng đoạn lặp** — không thêm cùng một `##` / cùng một đoạn nhiều lần chỉ để đủ số từ.
+3. **Mỗi H2 trong một bài là duy nhất** — không trùng tiêu đề section trong cùng file.
+4. **Ảnh** — mỗi bài hero riêng; inline khác hero; không xoay vòng 1 pool nhỏ khiến nhiều URL trùng hàng loạt.
+5. **Trước khi coi là xong** — chạy QA / đọc lại chỗ dễ lộ template (FAQ copy nguyên xi, “One more…”, “Closing” lặp).
+
+## Medi cụ thể
+
+```bash
+cd ~/huong-dan/du-an/ca-nhan-anh/omeglechat/medi.omeglechat.online
+python3 qa-posts.py   # phải exit 0 trước khi commit/push
+```
+
+`generate-medi-posts.py` **không được** append section trùng. Nếu body < 1000 từ → mở rộng nội dung theo chủ đề, không loop pad.
+
+## Khi phát hiện lỗi trên live
+
+Sửa **toàn bộ** bài cùng class lỗi (không chỉ 1 URL user báo), rồi QA lại, rồi mới push.
